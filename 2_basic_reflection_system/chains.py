@@ -1,5 +1,8 @@
+import os
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+load_dotenv()
 
 generation_prompt = ChatPromptTemplate.from_messages(
     [
@@ -24,7 +27,8 @@ reflection_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro",
+                             api_key=os.getenv("GOOGLE_API_KEY"))
 
 generation_chain = generation_prompt | llm
 reflection_chain = reflection_prompt | llm
